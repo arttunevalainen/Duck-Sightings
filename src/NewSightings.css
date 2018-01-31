@@ -1,0 +1,21 @@
+
+
+.form {
+    width: 80%;
+    margin: auto;
+}
+
+#selectspecies {
+    width: 200px;
+    margin: auto;
+}
+
+#number {
+    width: 100px;
+    margin: auto;
+}
+
+#description {
+    width: 70%;
+    margin: auto;
+}

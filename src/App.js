@@ -47,7 +47,6 @@ class App extends Component {
         else {
             return (<div>Getting duck data...</div>);
         }
-        
     }
 
     addSighting() {
