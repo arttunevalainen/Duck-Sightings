@@ -38,7 +38,7 @@ class NewSighting extends Component {
         }
 
         if(this.state.number !== undefined && this.state.description !== undefined) {
-            postSightings(this.state.selectedspecies, timestamp, parseInt(this.state.number, 10), this.state.description).then((data) => {
+            postSightings(this.state.selectedspecies, this.state.description, timestamp, parseInt(this.state.number, 10)).then((data) => {
                 this.props.goBack();
             });
         }
@@ -76,7 +76,7 @@ class NewSighting extends Component {
             <div>
                 <div className="errors">
                     <p className="error">{this.state.numbererror}</p>
-                    <p  className="error">{this.state.descriptionerror}</p>
+                    <p className="error">{this.state.descriptionerror}</p>
                 </div>
                 <Form className="form">
                     <FormGroup>

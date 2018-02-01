@@ -33,13 +33,13 @@ export function getSpecies() {
 }
 
 
-export function postSightings(species, date, number, description) {
+export function postSightings(species, description, date, number) {
     return new Promise(function(resolve, reject) {
         axios.post(address + 'sightings', {
                 id: 0,
                 species: species,
                 description: description,
-                date: date,
+                dateTime: date,
                 count: number
             })
             .then(function (response) {
