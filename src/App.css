@@ -3,9 +3,9 @@
 }
 
 #ducklist {
-    display: flex;
-    align-items : center;
-    justify-content : center;
+    margin: auto;
+    width: 80%;
+    margin-top: 20px;
 }
 
 .listitem {

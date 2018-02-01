@@ -3,6 +3,7 @@
 .form {
     width: 80%;
     margin: auto;
+    margin-top: 20px;
 }
 
 #selectspecies {
@@ -16,6 +17,16 @@
 }
 
 #description {
-    width: 70%;
+    width: 250px;
     margin: auto;
+}
+
+.errors {
+    color: red;
+    margin-top: 10px;
+}
+
+.error {
+    padding: 0px;
+    margin: 0px;
 }

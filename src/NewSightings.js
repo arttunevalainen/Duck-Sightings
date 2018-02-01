@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { getSpecies,  } from './Services.js';
+import { getSpecies, postSightings,  } from './Services.js';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import './NewSightings.css';
 
 class NewSighting extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
-        this.state = { species: '' };
+        this.state = { species: '', error: '' };
 
         this.numberchanged = this.numberchanged.bind(this);
         this.sendInformation = this.sendInformation.bind(this);
@@ -20,16 +20,28 @@ class NewSighting extends Component {
 
     getSpeciesForListing() {
         getSpecies().then((data) => {
-            this.setState({ species: data });
-        })
+            this.setState({ selectedspecies: data[0].name, species: data })
+        });
     }
 
     sendInformation() {
-        var event = new Date();
-        console.log(event.toISOString());
-        console.log(this.state.number);
-        console.log(this.state.selectedspecies);
-        console.log(this.state.description);
+        let date = new Date();
+        let timestamp = date.toISOString();
+
+        this.setState({numbererror: undefined, descriptionerror: undefined});
+
+        if(this.state.number === undefined) {
+            this.setState({numbererror: 'enter a number!'});
+        }
+        if(this.state.description === undefined) {
+            this.setState({descriptionerror: 'enter a description!'});
+        }
+
+        if(this.state.number !== undefined && this.state.description !== undefined) {
+            postSightings(this.state.selectedspecies, timestamp, parseInt(this.state.number, 10), this.state.description).then((data) => {
+                this.props.goBack();
+            });
+        }
     }
 
     listSpeciesToOptions() {
@@ -62,6 +74,10 @@ class NewSighting extends Component {
     render() {
         return (
             <div>
+                <div className="errors">
+                    <p className="error">{this.state.numbererror}</p>
+                    <p  className="error">{this.state.descriptionerror}</p>
+                </div>
                 <Form className="form">
                     <FormGroup>
                         <Label>Select Species</Label>
