@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { getSpecies, postSightings,  } from './Services.js';
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Button, Alert } from 'reactstrap';
 import './NewSightings.css';
+
+const Arrowleft = require('react-icons/lib/fa/arrow-circle-left');
+
 
 class NewSighting extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = { species: '', error: '' };
+        this.state = { species: '' };
 
         this.numberchanged = this.numberchanged.bind(this);
         this.sendInformation = this.sendInformation.bind(this);
@@ -28,13 +31,13 @@ class NewSighting extends Component {
         let date = new Date();
         let timestamp = date.toISOString();
 
-        this.setState({numbererror: undefined, descriptionerror: undefined});
+        this.setState({numbererror: false, descriptionerror: false});
 
         if(this.state.number === undefined) {
-            this.setState({numbererror: 'enter a number!'});
+            this.setState({numbererror: true});
         }
         if(this.state.description === undefined) {
-            this.setState({descriptionerror: 'enter a description!'});
+            this.setState({descriptionerror: true});
         }
 
         if(this.state.number !== undefined && this.state.description !== undefined) {
@@ -74,10 +77,21 @@ class NewSighting extends Component {
     render() {
         return (
             <div>
+                <Arrowleft id="gobackarrow" onClick={this.props.goBack}></Arrowleft>
+                
                 <div className="errors">
-                    <p className="error">{this.state.numbererror}</p>
-                    <p className="error">{this.state.descriptionerror}</p>
+                    {this.state.numbererror && 
+                        <Alert color="danger">
+                            Number of Ducks Missing!
+                        </Alert>
+                    }
+                    {this.state.descriptionerror && 
+                        <Alert color="danger" className="error">
+                            Description missing!
+                        </Alert>
+                    }
                 </div>
+                
                 <Form className="form">
                     <FormGroup>
                         <Label>Select Species</Label>

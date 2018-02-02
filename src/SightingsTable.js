@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { getSightings } from './Services.js';
-import { Button, Table } from 'reactstrap';
+import { Table } from 'reactstrap';
+import './SightingsTable.css';
 
+const Angledown = require('react-icons/lib/fa/angle-down');
+const Angleup = require('react-icons/lib/fa/angle-up');
+const Plus = require('react-icons/lib/fa/plus-circle');
 
 class SightingsTable extends Component {
 
@@ -37,18 +41,10 @@ class SightingsTable extends Component {
 
         if(ducklist !== '') {
             if(this.state.ascending) {
-                ducklist.sort(function(a,b){
-                    let c = new Date(a.dateTime);
-                    let d = new Date(b.dateTime);
-                    return c-d;
-                });
+                this.sortDucksAscending(ducklist);
             }
             else {
-                ducklist.sort(function(a,b){
-                    let c = new Date(a.dateTime);
-                    let d = new Date(b.dateTime);
-                    return d-c;
-                });
+                this.sortDucksDescending(ducklist);
             }
 
             const list = ducklist.map((duck) => {
@@ -58,17 +54,13 @@ class SightingsTable extends Component {
                 </tr>);
             });
 
-            let sortingOrder = 'Set to Ascending';
-            if(this.state.ascending) {
-                sortingOrder = 'Set to descending';
-            }
-
             return (
                 <Table id="ducklist">
                     <thead>
                         <tr>
-                            <th>Date
-                                <Button type="button" color="info" id="readybutton" onClick={this.setAscending}>{sortingOrder}</Button>
+                            <th className="grabbable" onClick={this.setAscending}>Date
+                                {this.state.ascending && <Angledown className="anglebutton" onClick={this.setAscending}></Angledown>}
+                                {(!this.state.ascending) && <Angleup className="anglebutton" onClick={this.setAscending}></Angleup>}
                             </th>
                             <th>Species</th>
                             <th>Description</th>
@@ -84,6 +76,22 @@ class SightingsTable extends Component {
         }
     }
 
+    sortDucksAscending(ducklist) {
+        ducklist.sort(function(a,b){
+            let c = new Date(a.dateTime);
+            let d = new Date(b.dateTime);
+            return c-d;
+        });
+    }
+
+    sortDucksDescending(ducklist) {
+        ducklist.sort(function(a,b){
+            let c = new Date(a.dateTime);
+            let d = new Date(b.dateTime);
+            return d-c;
+        });
+    }
+
     setAscending() {
         if(this.state.ascending) {
             this.setState({ ascending: false });
@@ -96,7 +104,7 @@ class SightingsTable extends Component {
     render() {
         return (
             <div>
-                <Button type="button" color="info" id="readybutton" onClick={this.props.addSighting}>Add sighting</Button>
+                <Plus id="addsighting" onClick={this.props.addSighting}></Plus>
                 {this.listDucks()}
             </div>
         );

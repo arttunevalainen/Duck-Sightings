@@ -1,0 +1,25 @@
+.anglebutton {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+#ducklist {
+    margin: auto;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.listitem {
+    width: 80%;
+}
+
+.grabbable {
+    cursor: pointer;
+}
+
+#addsighting {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}

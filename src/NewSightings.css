@@ -18,15 +18,27 @@
 
 #description {
     width: 250px;
+    height: 120px;
     margin: auto;
 }
 
 .errors {
     color: red;
+    margin: auto;
     margin-top: 10px;
+    width: 50%;
 }
 
 .error {
     padding: 0px;
     margin: 0px;
+}
+
+#gobackarrow {
+    position: absolute;
+    top: 50px;
+    left: 10%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
 }

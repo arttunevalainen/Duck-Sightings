@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
 import NewSighting from './NewSightings.js';
 import SightingsTable from './SightingsTable.js';
 import './App.css';
@@ -30,7 +29,6 @@ class App extends Component {
             <div className="App">
                 <h1>Duck sightings</h1>
                 {frontstate && <SightingsTable addSighting={this.addSighting}></SightingsTable>}
-                {!frontstate && <Button type="button" color="info" id="readybutton" onClick={this.backToFront}>Back to bird listing</Button>}
                 {!frontstate && <NewSighting goBack={this.backToFront}></NewSighting>}
             </div>
         );
