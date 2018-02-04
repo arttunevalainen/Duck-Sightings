@@ -1,6 +1,7 @@
 # Duck-Sightings
 Summer-2018 Vincit Duck Sightings homework
 
+Vaatimukset:
 
 • Asiakassovelluksella tulee voida listata kaikki havainnot ja lisätä uusia havaintoja. Operaatiot tulee kohdistaa tehtävänannossa
 kuvattuun palvelinsovellukseen.
@@ -13,6 +14,7 @@ ankkalaji, josta palvelinsovelluksessa ei ole määrittelyä, todetaan olevan vi
 • Havainnot tulee voida järjestää käyttöliittymässä ajallisesti joko laskevaan tai nousevaan järjestykseen.
 
 • Palvelimen lähettämiä vastauksia ei tarvitse erikseen tarkistaa vaan voit luottaa niiden olevan aina määrittelyjen mukaisia.
+
 
 
 Vaihtoehto A) Selainsovellus
