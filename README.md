@@ -3,6 +3,7 @@ Summer-2018 Vincit Duck Sightings homework
 
 
 Vaihtoehto A) Selainsovellus
+
 Toteuta yksinkertainen yhden sivun web-käyttöliittymä, joka
 toteuttaa yllä kuvatut yleiset asiakassovelluksen vaatimukset.
 Toteutuksessa on suotavaa käyttää jotain nykyaikaista ohjelmistokehystä
