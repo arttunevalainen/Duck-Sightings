@@ -27,9 +27,10 @@ class App extends Component {
 
         return (
             <div className="App">
-                <h1>Duck sightings</h1>
-                {frontstate && <SightingsTable addSighting={this.addSighting}></SightingsTable>}
-                {!frontstate && <NewSighting goBack={this.backToFront}></NewSighting>}
+                <img id="cornerimage" src={require("./koodarijahti.jpg")} alt="koodarijahti"/>
+                    <h1 id="title">Duck Sightings</h1>
+                    {frontstate && <SightingsTable addSighting={this.addSighting}></SightingsTable>}
+                    {!frontstate && <NewSighting goBack={this.backToFront}></NewSighting>}
             </div>
         );
     }

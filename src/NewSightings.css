@@ -34,11 +34,22 @@
     margin: 0px;
 }
 
-#gobackarrow {
-    position: absolute;
-    top: 50px;
-    left: 10%;
-    width: 40px;
-    height: 40px;
+#goback {
+    position: relative;
+    top: 0px;
+    left: 0px;
     cursor: pointer;
+    font-family: 'Encode Sans Expanded', sans-serif;
+}
+
+#gobackarrow {
+    margin-bottom: 3px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#submitbutton {
+    font-family: 'Encode Sans Expanded', sans-serif;
 }

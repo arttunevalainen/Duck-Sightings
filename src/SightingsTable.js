@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import { getSightings } from './Services.js';
-import { Table } from 'reactstrap';
+import { Table, Button } from 'reactstrap';
 import './SightingsTable.css';
+import FadeIn from 'react-fade-in';
 
 const Angledown = require('react-icons/lib/fa/angle-down');
 const Angleup = require('react-icons/lib/fa/angle-up');
-const Plus = require('react-icons/lib/fa/plus-circle');
+const Plus = require('react-icons/lib/fa/plus');
 
 class SightingsTable extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = {duckinfo: '', ascending: true};
+        this.state = {duckinfo: '', datesascending: true };
 
         this.getducks = this.getducks.bind(this);
         this.listDucks = this.listDucks.bind(this);
-        this.setAscending = this.setAscending.bind(this);
+        this.setDatesAscending = this.setDatesAscending.bind(this);
 
         this.getducks();
     }
@@ -40,11 +41,11 @@ class SightingsTable extends Component {
         let ducklist = this.state.duckinfo;
 
         if(ducklist !== '') {
-            if(this.state.ascending) {
-                this.sortDucksAscending(ducklist);
+            if(this.state.datesascending) {
+                this.sortDucksDateAscending(ducklist);
             }
             else {
-                this.sortDucksDescending(ducklist);
+                this.sortDucksDateDescending(ducklist);
             }
 
             const list = ducklist.map((duck) => {
@@ -58,9 +59,9 @@ class SightingsTable extends Component {
                 <Table id="ducklist">
                     <thead>
                         <tr>
-                            <th className="grabbable" onClick={this.setAscending}>Date
-                                {this.state.ascending && <Angledown className="anglebutton" onClick={this.setAscending}></Angledown>}
-                                {(!this.state.ascending) && <Angleup className="anglebutton" onClick={this.setAscending}></Angleup>}
+                            <th className="grabbable" onClick={this.setDatesAscending}>Date
+                                {this.state.datesascending && <Angledown className="anglebutton" onClick={this.setDatesAscending}></Angledown>}
+                                {(!this.state.datesascending) && <Angleup className="anglebutton" onClick={this.setDatesAscending}></Angleup>}
                             </th>
                             <th>Species</th>
                             <th>Description</th>
@@ -76,7 +77,7 @@ class SightingsTable extends Component {
         }
     }
 
-    sortDucksAscending(ducklist) {
+    sortDucksDateAscending(ducklist) {
         ducklist.sort(function(a,b){
             let c = new Date(a.dateTime);
             let d = new Date(b.dateTime);
@@ -84,7 +85,7 @@ class SightingsTable extends Component {
         });
     }
 
-    sortDucksDescending(ducklist) {
+    sortDucksDateDescending(ducklist) {
         ducklist.sort(function(a,b){
             let c = new Date(a.dateTime);
             let d = new Date(b.dateTime);
@@ -92,20 +93,25 @@ class SightingsTable extends Component {
         });
     }
 
-    setAscending() {
-        if(this.state.ascending) {
-            this.setState({ ascending: false });
+    setDatesAscending() {
+        if(this.state.datesascending) {
+            this.setState({ datesascending: false });
         }
         else {
-            this.setState({ ascending: true });
+            this.setState({ datesascending: true });
         }
     }
 
     render() {
         return (
             <div>
-                <Plus id="addsighting" onClick={this.props.addSighting}></Plus>
-                {this.listDucks()}
+                <FadeIn>
+                    <Button id="addsighting" onClick={this.props.addSighting}>
+                        <Plus id="addsightingimage" onClick={this.props.addSighting}></Plus>
+                        New Sighting
+                    </Button>
+                    {this.listDucks()}
+                </FadeIn>
             </div>
         );
     }

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { getSpecies, postSightings,  } from './Services.js';
+import { getSpecies, postSightings } from './Services.js';
 import { Form, FormGroup, Label, Input, Button, Alert } from 'reactstrap';
 import './NewSightings.css';
+import FadeIn from 'react-fade-in';
 
-const Arrowleft = require('react-icons/lib/fa/arrow-circle-left');
+const Arrowleft = require('react-icons/lib/fa/arrow-left');
 
 
 class NewSighting extends Component {
@@ -23,7 +24,7 @@ class NewSighting extends Component {
 
     getSpeciesForListing() {
         getSpecies().then((data) => {
-            this.setState({ selectedspecies: data[0].name, species: data })
+            this.setState({ selectedspecies: data[0].name, species: data });
         });
     }
 
@@ -77,36 +78,41 @@ class NewSighting extends Component {
     render() {
         return (
             <div>
-                <Arrowleft id="gobackarrow" onClick={this.props.goBack}></Arrowleft>
-                
-                <div className="errors">
-                    {this.state.numbererror && 
-                        <Alert color="danger">
-                            Number of Ducks Missing!
-                        </Alert>
-                    }
-                    {this.state.descriptionerror && 
-                        <Alert color="danger" className="error">
-                            Description missing!
-                        </Alert>
-                    }
-                </div>
-                
-                <Form className="form">
-                    <FormGroup>
-                        <Label>Select Species</Label>
-                        {this.listSpeciesToOptions()}
-                    </FormGroup>
-                    <FormGroup>
-                        <Label>Number</Label>
-                        <Input type="number" name="number" id="number" onChange={this.numberchanged}/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label>Description</Label>
-                        <Input type="textarea" name="text" id="description" onChange={this.descriptionchanged}/>
-                    </FormGroup>
-                    <Button onClick={this.sendInformation}>Submit</Button>
-                </Form>
+                <FadeIn>
+                    <Button id="goback" onClick={this.props.goBack}>
+                        <Arrowleft id="gobackarrow" onClick={this.props.goBack}></Arrowleft>
+                        Go back
+                    </Button>
+
+                    <div className="errors">
+                        {this.state.numbererror &&
+                            <Alert color="danger">
+                                Number of Ducks Missing!
+                            </Alert>
+                        }
+                        {this.state.descriptionerror &&
+                            <Alert color="danger" className="error">
+                                Description missing!
+                            </Alert>
+                        }
+                    </div>
+                    
+                    <Form className="form">
+                        <FormGroup>
+                            <Label>Select Species</Label>
+                            {this.listSpeciesToOptions()}
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Number</Label>
+                            <Input type="number" name="number" id="number" onChange={this.numberchanged}/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Description</Label>
+                            <Input type="textarea" name="text" id="description" onChange={this.descriptionchanged}/>
+                        </FormGroup>
+                        <Button id="submitbutton" onClick={this.sendInformation}>Submit</Button>
+                    </Form>
+                </FadeIn>
             </div>
         );
     }

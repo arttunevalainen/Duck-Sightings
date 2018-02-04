@@ -1,3 +1,18 @@
 .App {
     text-align: center;
+    font-family: 'Slabo 27px', serif;
+}
+
+#title {
+    font-family: 'Rammetto One', cursive;
+    color: orange;
+    font-size: 45px;
+}
+
+#cornerimage {
+    float: right;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    opacity: 0.1;
 }
