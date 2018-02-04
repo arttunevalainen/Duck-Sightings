@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { getSightings } from './Services.js';
+import { getSightings } from '../services/Services.js';
 import { Table, Button } from 'reactstrap';
-import './SightingsTable.css';
+import '../css/SightingsTable.css';
 import FadeIn from 'react-fade-in';
 
 const Angledown = require('react-icons/lib/fa/angle-down');

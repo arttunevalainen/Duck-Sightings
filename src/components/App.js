@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NewSighting from './NewSightings.js';
 import SightingsTable from './SightingsTable.js';
-import './App.css';
+import '../css/App.css';
 
 class App extends Component {
 
@@ -27,7 +27,7 @@ class App extends Component {
 
         return (
             <div className="App">
-                <img id="cornerimage" src={require("./koodarijahti.jpg")} alt="koodarijahti"/>
+                <img id="cornerimage" src={require("../static/koodarijahti.jpg")} alt="koodarijahti"/>
                     <h1 id="title">Duck Sightings</h1>
                     {frontstate && <SightingsTable addSighting={this.addSighting}></SightingsTable>}
                     {!frontstate && <NewSighting goBack={this.backToFront}></NewSighting>}

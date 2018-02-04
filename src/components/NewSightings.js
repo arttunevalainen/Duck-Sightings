@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { getSpecies, postSightings } from './Services.js';
+import { getSpecies, postSightings } from '../services/Services.js';
 import { Form, FormGroup, Label, Input, Button, Alert } from 'reactstrap';
-import './NewSightings.css';
+import '../css/NewSightings.css';
 import FadeIn from 'react-fade-in';
 
 const Arrowleft = require('react-icons/lib/fa/arrow-left');
