@@ -4,9 +4,10 @@ import { Table, Button } from 'reactstrap';
 import '../css/SightingsTable.css';
 import FadeIn from 'react-fade-in';
 
-const Angledown = require('react-icons/lib/fa/angle-down');
-const Angleup = require('react-icons/lib/fa/angle-up');
-const Plus = require('react-icons/lib/fa/plus');
+let Angledown = require('react-icons/lib/fa/angle-down');
+let Angleup = require('react-icons/lib/fa/angle-up');
+let Plus = require('react-icons/lib/fa/plus');
+
 
 class SightingsTable extends Component {
 
@@ -18,6 +19,7 @@ class SightingsTable extends Component {
         this.getducks = this.getducks.bind(this);
         this.listDucks = this.listDucks.bind(this);
         this.setDatesAscending = this.setDatesAscending.bind(this);
+        this.ducksorting = this.ducksorting.bind(this);
 
         this.getducks();
     }
@@ -31,29 +33,23 @@ class SightingsTable extends Component {
         clearInterval(this.interval);
     }
 
-    getducks() {
-        getSightings().then((ducks) => {
-            this.setState({duckinfo: ducks});
-        });
+    async getducks() {
+        let response = await getSightings();
+        if(response !== 'error') {
+            this.setState({duckinfo: response.data});
+        }
+        else {
+            console.log(response);
+        }
     }
 
     listDucks() {
         let ducklist = this.state.duckinfo;
 
         if(ducklist !== '') {
-            if(this.state.datesascending) {
-                this.sortDucksDateAscending(ducklist);
-            }
-            else {
-                this.sortDucksDateDescending(ducklist);
-            }
+            ducklist.sort(this.ducksorting);
 
-            const list = ducklist.map((duck) => {
-                let time = new Date(duck.dateTime);
-                return (<tr className="listitem" key={duck.id}>
-                    <td>{time.toUTCString()}</td><td>{duck.species}</td><td>{duck.description}</td><td>{duck.count}</td>
-                </tr>);
-            });
+            let list = ducklist.map(this.ducklistcomponent);
 
             return (
                 <Table id="ducklist">
@@ -77,20 +73,24 @@ class SightingsTable extends Component {
         }
     }
 
-    sortDucksDateAscending(ducklist) {
-        ducklist.sort(function(a,b){
-            let c = new Date(a.dateTime);
-            let d = new Date(b.dateTime);
-            return c-d;
-        });
+    ducklistcomponent(duck) {
+        let time = new Date(duck.dateTime);
+            return (
+                <tr className="listitem" key={duck.id}>
+                    <td>{time.toUTCString()}</td><td>{duck.species}</td><td>{duck.description}</td><td>{duck.count}</td>
+                </tr>
+            );
     }
 
-    sortDucksDateDescending(ducklist) {
-        ducklist.sort(function(a,b){
-            let c = new Date(a.dateTime);
-            let d = new Date(b.dateTime);
+    ducksorting(a, b) {
+        let c = new Date(a.dateTime);
+        let d = new Date(b.dateTime);
+        if(this.state.datesascending) {
+            return c-d;
+        }
+        else {
             return d-c;
-        });
+        }
     }
 
     setDatesAscending() {

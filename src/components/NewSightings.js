@@ -4,7 +4,7 @@ import { Form, FormGroup, Label, Input, Button, Alert } from 'reactstrap';
 import '../css/NewSightings.css';
 import FadeIn from 'react-fade-in';
 
-const Arrowleft = require('react-icons/lib/fa/arrow-left');
+let Arrowleft = require('react-icons/lib/fa/arrow-left');
 
 
 class NewSighting extends Component {
@@ -22,13 +22,17 @@ class NewSighting extends Component {
         this.getSpeciesForListing();
     }
 
-    getSpeciesForListing() {
-        getSpecies().then((data) => {
-            this.setState({ selectedspecies: data[0].name, species: data });
-        });
+    async getSpeciesForListing() {
+        let response = await getSpecies();
+        if(response !== 'error') {
+            this.setState({ selectedspecies: response.data[0].name, species: response.data });
+        }
+        else {
+            console.log(response);
+        }
     }
 
-    sendInformation() {
+    async sendInformation() {
         let date = new Date();
         let timestamp = date.toISOString();
 
@@ -42,9 +46,13 @@ class NewSighting extends Component {
         }
 
         if(this.state.number !== undefined && this.state.description !== undefined) {
-            postSightings(this.state.selectedspecies, this.state.description, timestamp, parseInt(this.state.number, 10)).then((data) => {
+            let response = await postSightings(this.state.selectedspecies, this.state.description, timestamp, parseInt(this.state.number, 10));
+            if(response !== 'error') {
                 this.props.goBack();
-            });
+            }
+            else {
+                console.log(response);
+            }
         }
     }
 
@@ -52,8 +60,9 @@ class NewSighting extends Component {
         let specieslist = this.state.species;
 
         if(specieslist !== '') {
-            const list = specieslist.map((species) =>
-                <option key={species.name}>{species.name}</option>
+            let list = specieslist.map( function(species) {
+                return (<option key={species.name}>{species.name}</option>);
+                }
             );
 
             return (<Input type="select" name="select" id="selectspecies" onChange={this.specieschanged}>{list}</Input>);
